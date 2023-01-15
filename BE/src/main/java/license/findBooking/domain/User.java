@@ -41,4 +41,10 @@ public class User {
 
         return this;
     }
+
+    public User updateRole(UserDto userDto) {
+        this.setRoleType(userDto.getRoleType());
+
+        return this;
+    }
 }

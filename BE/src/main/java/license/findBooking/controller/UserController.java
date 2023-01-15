@@ -48,6 +48,13 @@ public class UserController {
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
     }
 
+    @PutMapping("/change-role")
+    public ResponseEntity<UserDto> editUsersRole(@RequestBody UserDto userDto) {
+        return userService.editUserRole(userDto)
+                .map(user -> ResponseEntity.ok(userTranslator.generateUserDto(user)))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
+    }
+
     @PutMapping("")
     public ResponseEntity<UserDto> editUser(@RequestBody UserDto userDto) {
         return userService.editUser(userDto)

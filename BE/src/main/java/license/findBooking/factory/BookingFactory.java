@@ -2,6 +2,8 @@ package license.findBooking.factory;
 
 import license.findBooking.domain.Booking;
 import license.findBooking.domain.dto.BookingDto;
+import license.findBooking.repository.AccommodationRepository;
+import license.findBooking.repository.BookingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +12,8 @@ import org.springframework.stereotype.Component;
 public class BookingFactory {
 
     private final AccommodationFactory accommodationFactory;
+
+    private final AccommodationRepository accommodationRepository;
 
     public Booking toEntity(BookingDto bookingDto) {
         Booking booking = new Booking();
@@ -20,7 +24,7 @@ public class BookingFactory {
         booking.setRooms(bookingDto.getRooms());
         booking.setNumberOfPeople(bookingDto.getNumberOfPeople());
         booking.setOtherDetails(bookingDto.getOtherDetails());
-        booking.setAccommodation(accommodationFactory.toEntity(bookingDto.getAccommodationDto()));
+        booking.setAccommodation(accommodationRepository.findByAccommodationId(bookingDto.getAccommodationDto().getAccommodationId()).get());
 
         return booking;
     }

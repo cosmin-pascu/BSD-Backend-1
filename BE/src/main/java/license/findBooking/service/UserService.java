@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.stream.DoubleStream;
 
 @Service
 @RequiredArgsConstructor
@@ -24,5 +25,10 @@ public class UserService {
     public Optional<User> editUser(UserDto userDto) {
         return userRepository.findByUserId(userDto.getUserId())
                 .map(user -> userRepository.save(user.updateFields(userDto)));
+    }
+
+    public Optional<User> editUserRole(UserDto userDto) {
+        return userRepository.findByEmail(userDto.getEmail())
+                .map(user -> userRepository.save(user.updateRole(userDto)));
     }
 }
