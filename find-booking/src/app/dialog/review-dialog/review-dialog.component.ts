@@ -46,6 +46,7 @@ export class ReviewDialogComponent implements OnInit {
   }
 
   prepareReviewFormat() {
+    this.review.accommodationId = this.data.accommodationId;
     this.review.accommodation!.accommodationId = this.data.accommodationId;
     this.review.stars = this.rating.value;
   }
