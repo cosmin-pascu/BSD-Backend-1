@@ -41,6 +41,13 @@ public class UserController {
         return ResponseEntity.ok(userTranslator.generateUserDtoList(userRepository.findAll()));
     }
 
+    @GetMapping("/logged-in-user")
+    public ResponseEntity<UserDto> getLoggedInUser() {
+        return userService.getLoggedInUser()
+                .map(user -> ResponseEntity.ok(userTranslator.generateUserDto(user)))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
     @PostMapping("/register")
     public ResponseEntity<UserDto> addUser(@RequestBody UserDto userDto) {
         return userService.createUser(userDto)
