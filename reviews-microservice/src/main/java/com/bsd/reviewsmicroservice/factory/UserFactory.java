@@ -12,7 +12,7 @@ public class UserFactory {
     public User toEntity(UserDto userDto) {
         User user = new User();
 
-        user.setUserId(userDto.userId);
+        user.setUserId(userDto.getUserId());
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
         user.setEmail(userDto.getEmail());
