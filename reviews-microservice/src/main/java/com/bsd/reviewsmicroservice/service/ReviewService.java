@@ -1,13 +1,16 @@
 package com.bsd.reviewsmicroservice.service;
 
+import com.bsd.reviewsmicroservice.domain.User;
 import com.bsd.reviewsmicroservice.repository.ReviewRepository;
 import com.bsd.reviewsmicroservice.domain.Review;
 import com.bsd.reviewsmicroservice.domain.dto.ReviewDto;
 import com.bsd.reviewsmicroservice.factory.ReviewFactory;
+import com.bsd.reviewsmicroservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -19,9 +22,15 @@ public class ReviewService {
 
     private final ReviewRepository reviewRepository;
     private final ReviewFactory reviewFactory;
+    private final UserRepository userRepository;
 
     public Optional<Review> addReview(ReviewDto reviewDto) {
-        return Optional.of(reviewRepository.save(reviewFactory.toEntity(reviewDto)));
+        User user = userRepository.findByEmail(reviewDto.getUser().getEmail()).get();
+        return Optional.of(reviewRepository.save(new Review(reviewDto.stars,
+                reviewDto.comment,
+                LocalDate.now(),
+                reviewDto.accommodationId,
+                user.getUserId())));
     }
 
     @Transactional
