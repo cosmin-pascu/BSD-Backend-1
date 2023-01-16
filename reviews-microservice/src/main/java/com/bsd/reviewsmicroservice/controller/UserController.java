@@ -23,6 +23,7 @@ public class UserController {
 
     private final UserService userService;
 
+    @CrossOrigin(origins="http://localhost:4200")
     @GetMapping("/{userId}")
     public ResponseEntity<UserDto> getUser(@PathVariable("userId") Long userId) {
         return userRepository.findByUserId(userId)
@@ -30,6 +31,7 @@ public class UserController {
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
+    @CrossOrigin(origins="http://localhost:4200")
     @GetMapping("/byEmail")
     public ResponseEntity<UserDto> getUserByEmail(@RequestParam String email) {
         return userRepository.findByEmail(email)
@@ -37,12 +39,13 @@ public class UserController {
                 .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
+    @CrossOrigin(origins="http://localhost:4200")
     @GetMapping("")
     public ResponseEntity<List<UserDto>> getAllUsers() {
         return ResponseEntity.ok(userTranslator.generateUserDtoList(userRepository.findAll()));
     }
 
-
+    @CrossOrigin(origins="http://localhost:4200")
     @PostMapping("/register")
     public ResponseEntity<UserDto> addUser(@RequestBody UserDto userDto) {
         return userService.createUser(userDto)

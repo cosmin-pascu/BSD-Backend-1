@@ -2,6 +2,8 @@ package com.bsd.reviewsmicroservice.translator;
 
 import com.bsd.reviewsmicroservice.domain.Review;
 import com.bsd.reviewsmicroservice.domain.dto.ReviewDto;
+import com.bsd.reviewsmicroservice.domain.dto.UserDto;
+import com.bsd.reviewsmicroservice.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +14,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ReviewTranslator {
 
+    private final UserTranslator userTranslator;
+    private final UserRepository userRepository;
+
     public ReviewDto generateReviewDto(Review review) {
         ReviewDto reviewDto = new ReviewDto();
 
@@ -19,7 +24,8 @@ public class ReviewTranslator {
         reviewDto.setStars(review.getStars());
         reviewDto.setComment(review.getComment());
         reviewDto.setTimestamp(review.getTimestamp());
-        reviewDto.setUserId(review.getUserId());
+        UserDto userDto = userTranslator.generateUserDto(userRepository.findByUserId(review.getUserId()).get());
+        reviewDto.setUser(userDto);
         reviewDto.setAccommodationId(review.getAccommodationId());
 
         return reviewDto;

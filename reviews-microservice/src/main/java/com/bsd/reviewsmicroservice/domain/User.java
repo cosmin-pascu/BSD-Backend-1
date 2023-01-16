@@ -34,6 +34,8 @@ public class User {
     @Column(name = "Role")
     private RoleType roleType;
 
+    public User() {}
+
     public User updateFields(UserDto userDto) {
         this.setEmail(userDto.getEmail());
         this.setFirstName(userDto.getFirstName());

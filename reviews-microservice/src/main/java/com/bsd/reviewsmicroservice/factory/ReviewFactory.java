@@ -16,7 +16,7 @@ public class ReviewFactory {
         review.setStars(reviewDto.getStars());
         review.setComment(reviewDto.getComment());
         review.setTimestamp(reviewDto.getTimestamp());
-        review.setUserId(reviewDto.getUserId());
+        review.setUserId(reviewDto.getUser().getUserId());
         review.setAccommodationId(reviewDto.getAccommodationId());
 
         return review;

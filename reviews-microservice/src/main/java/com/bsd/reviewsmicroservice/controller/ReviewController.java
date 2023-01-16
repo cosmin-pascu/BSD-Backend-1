@@ -17,6 +17,7 @@ public class ReviewController {
     private final ReviewService reviewService;
     private final ReviewTranslator reviewTranslator;
 
+    @CrossOrigin(origins="http://localhost:4200")
     @PostMapping
     public ResponseEntity<ReviewDto> addReview(@RequestBody ReviewDto reviewDto) {
         return reviewService.addReview(reviewDto)
@@ -24,6 +25,7 @@ public class ReviewController {
                             .orElseGet(() -> ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
     }
 
+    @CrossOrigin(origins="http://localhost:4200")
     @GetMapping("/by-user")
     public ResponseEntity<List<ReviewDto>> getReviewsByUser(@RequestParam Long userId) {
         return ResponseEntity.ok(
@@ -31,6 +33,7 @@ public class ReviewController {
                         reviewService.getReviewsByUser(userId)));
     }
 
+    @CrossOrigin(origins="http://localhost:4200")
     @GetMapping("/by-accommodation")
     public ResponseEntity<List<ReviewDto>> getReviewsByAccommodation(@RequestParam Long accommodationId) {
         return ResponseEntity.ok(
@@ -38,6 +41,7 @@ public class ReviewController {
                         reviewService.getReviewsByAccommodation(accommodationId)));
     }
 
+    @CrossOrigin(origins="http://localhost:4200")
     @GetMapping("/by-user-accommodation")
     public ResponseEntity<List<ReviewDto>> getReviewsByUserAndAccommodation(@RequestParam Long userId,
                                                                             @RequestParam Long accommodationId) {
@@ -46,12 +50,14 @@ public class ReviewController {
                         reviewService.getReviewsByUserAndAccommodation(userId, accommodationId)));
     }
 
+    @CrossOrigin(origins="http://localhost:4200")
     @DeleteMapping("/{reviewId}")
     public ResponseEntity<?> deleteReview(@PathVariable Long reviewId) {
         reviewService.deleteReview(reviewId);
         return ResponseEntity.ok().build();
     }
 
+    @CrossOrigin(origins="http://localhost:4200")
     @DeleteMapping
     public ResponseEntity<?> deleteReviewsByUserAndAccommodation(@RequestParam Long userId,
                                                                  @RequestParam Long accommodationId) {

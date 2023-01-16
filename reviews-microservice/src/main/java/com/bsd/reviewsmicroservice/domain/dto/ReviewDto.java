@@ -1,5 +1,6 @@
 package com.bsd.reviewsmicroservice.domain.dto;
 
+import com.bsd.reviewsmicroservice.domain.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -20,5 +21,5 @@ public class ReviewDto {
 
     public Long accommodationId;
 
-    public Long userId;
+    public UserDto user;
 }
